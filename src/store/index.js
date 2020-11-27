@@ -7,17 +7,26 @@ const store = createStore({
 			  searchStore: {
 					keyword: '',
 					searchState: ''
+				},
+				modal: {
+					showModal: false
 				}
 			}
     },
     mutations: {
 			setSearchStore (state, value) {
 				state.searchStore = value
+			},
+			setModal(state,value) {
+				state.modal = value
 			}
 		},
 		getters: {
 		  searchStore (state) {
 				return state.searchStore
+			},
+			modal(state) {
+				return state.modal
 			}
 		},
 		actions: {

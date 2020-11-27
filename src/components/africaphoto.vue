@@ -1,5 +1,5 @@
 <template>
-   <div class="africa-photo" :class="classes">
+   <div class="africa-photo" :class="classes" @click="() => handlePhotoClick({ imgURL, name, location })">
        <img :src="imgURL" />
 			<div class="africa-photo__description">
 				<h3>{{ name }}</h3>
@@ -14,7 +14,8 @@ export default {
 			classes: String,
 			name: String,
 			location: String,
-			imgURL: String
+			imgURL: String,
+			handlePhotoClick: Function
 		}
 }
 </script>
@@ -24,6 +25,7 @@ export default {
   height: auto;
 	position: relative;
 	margin: 0 20px 30px;
+	cursor: pointer;
 
 	img {
 		width: 100%;
