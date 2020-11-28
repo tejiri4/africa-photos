@@ -1,7 +1,7 @@
 <template>
-    <div class="modal-content-card">
+    <div class="modal-content-card" :style="{ width, height }">
       <div>
-          <img :src="imgURL" />
+          <img :src="imgURL"/>
 			</div>
 			<div class="modal-content-card__description">
 				<h3>{{ name }}</h3>
@@ -16,22 +16,27 @@ export default {
       name: String,
 			location: String,
 			imgURL: String,
+			width: String,
+			height: String
     }
 }
 </script>
 <style lang="scss">
 .modal-content-card {
-	width: fit-content;
-
 	img {
-		height:auto;
-    width:auto;
-		object-fit: cover;
+		max-height: 450px;
+		max-width: 100%;
+		object-fit: contain;
 	}
 
-	img, >div {
+	img, > div:first-child {
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
+	}
+
+	> div:last-child {
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
 	}
 
 	> div {
@@ -42,8 +47,7 @@ export default {
 		display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0 30px;
-		width: 100%;
+    padding-left: 15px;
 
 		h3 {
 			margin-top: 20px;

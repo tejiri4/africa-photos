@@ -1,5 +1,5 @@
 <template>
-   <div class="splash-photo" :class="`${classes} ${!state.isLoaded && 'img-loading'}`" @click="() => handlePhotoClick({ imgURL, name, location })">
+   <div class="splash-photo" :class="`${classes} ${!state.isLoaded && 'img-loading'}`" @click="() => handlePhotoClick({ imgURL, name, location, id })">
       <img :src="imgURL" @load="onImgLoad"  :class="state.isLoaded ? '' : 'loading'" alt="splash-image" />
 			<div class="splash-photo__description">
 				<h3>{{ name }}</h3>
@@ -17,7 +17,8 @@ export default {
 			name: String,
 			location: String,
 			imgURL: String,
-			handlePhotoClick: Function
+			handlePhotoClick: Function,
+			id: String
 		},
 		setup() {
       const state = reactive({

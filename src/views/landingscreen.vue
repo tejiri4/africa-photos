@@ -5,11 +5,7 @@
         </div>
 				<div>
 				<div class="landing-screen__splash-photos" v-if="searchStore.searchState === '' || searchStore.searchState === 'ended'">
-						<SplashPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/600/?random" :handlePhotoClick="handlePhotoClick"/>
-						<SplashPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/500/?random"  :handlePhotoClick="handlePhotoClick"/>
-						<SplashPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/200/?random" :handlePhotoClick="handlePhotoClick"/>
-						<SplashPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/100/?random" :handlePhotoClick="handlePhotoClick"/>
-						<SplashPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/600/?random" :handlePhotoClick="handlePhotoClick" />
+						<SplashPhoto v-for="photo in photos" :key="photo.id" :id="photo.id" classes="full-border-radius" :name="photo.name" :location="photo.location" :imgURL="photo.imgURL" :handlePhotoClick="handlePhotoClick"/>
 				</div>
 				<div class="landing-screen__splash-photos" v-if="searchStore.searchState === 'searching'">
 						<SplashPhotoLoading height="250px"/>
@@ -21,12 +17,12 @@
 				</div>
 				</div>
 				<Modal :showModal="modal.showModal" :handleCloseModal="handleCloseModal">
-					<ModalContentCard :imgURL="modal.imgURL" :name="modal.name" :location="modal.location" />
+					<ModalContentCard :imgURL="modal.urls.regular" :name="modal.user.name" :location="modal.user.location" :width="modal.width" :height="modal.height"/>
 				</Modal>
     </div>
 </template>
 <script>
-import { computed } from 'vue';
+import { computed, onBeforeMount } from 'vue';
 import { useStore } from 'vuex'
 import Search from '@/components/searchinput.vue'
 import SplashPhoto from '@/components/splashphoto.vue'
@@ -48,12 +44,19 @@ export default {
 
 			const searchStore = computed(() => store.getters.searchStore)
 			const modal = computed(() => store.getters.modal)
+			const photos = computed(() => store.getters.getPhotos)
+
+			onBeforeMount(() => {
+				store.dispatch('listPhotos')
+			})
 
 			const handleInputChange = ({ target: { value } }) => store.commit('setSearchStore', { searchState: '', keyword: value });
 
 			const startSearching = () => store.dispatch('startSearching')
 
-			const handlePhotoClick = photo => store.commit('setModal', { showModal: true, ...photo })
+			const handlePhotoClick = photo => {
+				store.dispatch('getPhoto', photo)
+			}
 
 			const handleCloseModal = () => store.commit('setModal', { showModal: false, })
 
@@ -63,7 +66,8 @@ export default {
 				startSearching,
 				modal,
 				handlePhotoClick,
-				handleCloseModal
+				handleCloseModal,
+				photos,
 			}
 		}
 }
@@ -83,13 +87,6 @@ export default {
 		justify-content: center;
 		width: 100%;
   }
-
-	.modal {
-		&__content {
-			// width: 60%;
-			// max-height: 500px;
-		}
-	}
 
 	&__splash-photos {
     column-count: 3;

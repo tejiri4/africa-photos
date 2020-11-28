@@ -34,12 +34,13 @@ export default {
 		position: absolute;
 		left: 0;
 		right: 0;
-		width: fit-content;
+		max-width: 60%;
 		top: 0;
 		bottom: 0;
 		margin: auto;
-		height: fit-content;
+		max-height: 500px;
 		border-radius: 5px;
+		width: fit-content;
 
 		> div {
 			position: relative;
@@ -57,5 +58,11 @@ export default {
 			}
 		}
 	}
+
+	@media only screen and (max-width: 580px) {
+    &__content-photos {
+			max-width: 90%;
+		}
+  }
 }
 </style>

@@ -1,5 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import { createStore } from 'vuex';
+import axios from 'axios';
 
 const store = createStore({
     state () {
@@ -10,7 +11,8 @@ const store = createStore({
 				},
 				modal: {
 					showModal: false
-				}
+				},
+				photos: [],
 			}
     },
     mutations: {
@@ -19,7 +21,10 @@ const store = createStore({
 			},
 			setModal(state,value) {
 				state.modal = value
-			}
+			},
+			setPhotos (state,value) {
+				state.photos = value
+			},
 		},
 		getters: {
 		  searchStore (state) {
@@ -27,17 +32,34 @@ const store = createStore({
 			},
 			modal(state) {
 				return state.modal
-			}
+			},
+			getPhotos(state) {
+				return state.photos.length ? state.photos.map(({ urls, user, id }) => ({
+					id,
+					name: user.name,
+					location: user.location,
+					imgURL: urls.small
+				})) : []
+			},
 		},
 		actions: {
-			startSearching ({ commit, state }) {
+			async startSearching ({ commit, state }) {
 				commit('setSearchStore', { ...state.searchStore, searchState: 'searching' })
 
-				setTimeout(() => {
-					commit('setSearchStore', { ...state.searchStore, searchState: 'ended' })
+				const res = await axios.get(`${process.env.VUE_APP_SPLASH_API}search/photos?page=1&query=${state.searchStore.keyword}&per_page=7`);
 
-				}, 30000)
-		
+				commit('setPhotos', res?.data?.results || [])
+				commit('setSearchStore', { ...state.searchStore, searchState: 'ended' })
+			},
+			async listPhotos({ commit }) {
+				const res = await axios.get(`${process.env.VUE_APP_SPLASH_API}search/photos?page=1&query=africans&per_page=7`);
+
+				commit('setPhotos', res?.data?.results || [])
+			},
+			async getPhoto({ commit }, payload) {
+				const res = await axios.get(`${process.env.VUE_APP_SPLASH_API}/photos/${payload.id}`);
+
+				commit('setModal', { showModal: true, ...res.data })
 			}
 		}
 });

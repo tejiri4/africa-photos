@@ -1,11 +1,11 @@
 <template>
  <div class="search" :class="searchState === '' && 'centered'">
-    <div class="search__input" v-if="searchState === ''">
-      <span class="search__input__search-icon" @click="startSearching">
+    <form class="search__input" v-if="searchState === ''" action="" @submit="startSearching">
+      <button class="search__button__search-icon" type="submit">
         <img src="../assets/search-interface-symbol.svg" alt="search" />
-      </span>
-      <input placeholder="Search for photo" :value="keyword" @input="handleInputChange" autofocus/>
-    </div>
+      </button>
+      <input ty placeholder="Search for photo" :value="keyword" @input="handleInputChange" autofocus required/>
+    </form>
      <div v-if="searchState === 'ended'">
        <h1>Search Result for <span>"{{ keyword }}"</span></h1>
      </div>
@@ -49,12 +49,18 @@ export default {
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      flex: 0.1;
     }
 
     img {
       width: 15px;
       height: 15px;
+    }
+
+    button {
+      border: none;
+      background: #fff;
+      flex: 0.1;
+      outline: none;
     }
 
     input {
