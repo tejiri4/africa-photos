@@ -1,7 +1,7 @@
 <template>
     <div class="landing-screen">
         <div class="landing-screen__search">
-           <Search :handleInputChange="handleInputChange" :keyword="searchStore.keyword" :searchState="searchStore.searchState" :startSearching="startSearching"/>
+           <Search :handleInputChange="handleInputChange" :keyword="searchStore.keyword" :searchState="searchStore.searchState" :startSearching="startSearching" :handleSearchAgain="handleSearchAgain"/>
         </div>
 				<div>
 				<div class="landing-screen__splash-photos" v-if="searchStore.searchState === '' || searchStore.searchState === 'ended'">
@@ -60,6 +60,8 @@ export default {
 
 			const handleCloseModal = () => store.commit('setModal', { showModal: false, })
 
+			const handleSearchAgain = () => store.commit('setSearchStore', { searchState: '', keyword: searchStore.value.keyword });
+
 			return {
 				searchStore,
 				handleInputChange,
@@ -68,6 +70,7 @@ export default {
 				handlePhotoClick,
 				handleCloseModal,
 				photos,
+				handleSearchAgain
 			}
 		}
 }
