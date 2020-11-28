@@ -26,16 +26,15 @@ export default {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: rgb(0 0 0 / 22%);
+	background: rgb(0 0 0 / 36%);
 	height: 100vh;
 	z-index: 10000;
 
 	&__content {
-		background: #fff;
 		position: absolute;
 		left: 0;
 		right: 0;
-		width: 100px;
+		width: fit-content;
 		top: 0;
 		bottom: 0;
 		margin: auto;

@@ -21,12 +21,21 @@ export default {
 </script>
 <style lang="scss">
 .modal-content-card {
+	width: fit-content;
+
 	img {
-		height: 350px;
-		width: 100%;
+		height:auto;
+    width:auto;
 		object-fit: cover;
+	}
+
+	img, >div {
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
+	}
+
+	> div {
+		background: #fff;
 	}
 
 	&__description {
@@ -34,6 +43,7 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     padding: 0 30px;
+		width: 100%;
 
 		h3 {
 			margin-top: 20px;

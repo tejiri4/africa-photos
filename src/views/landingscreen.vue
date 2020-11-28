@@ -4,20 +4,20 @@
            <Search :handleInputChange="handleInputChange" :keyword="searchStore.keyword" :searchState="searchStore.searchState" :startSearching="startSearching"/>
         </div>
 				<div>
-				<div class="landing-screen__africa-photos" v-if="searchStore.searchState === '' || searchStore.searchState === 'ended'">
-						<AfricaPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/600/?random" :handlePhotoClick="handlePhotoClick"/>
-						<AfricaPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/500/?random"  :handlePhotoClick="handlePhotoClick"/>
-						<AfricaPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/200/?random" :handlePhotoClick="handlePhotoClick"/>
-						<AfricaPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/100/?random" :handlePhotoClick="handlePhotoClick"/>
-						<AfricaPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/600/?random" :handlePhotoClick="handlePhotoClick" />
+				<div class="landing-screen__splash-photos" v-if="searchStore.searchState === '' || searchStore.searchState === 'ended'">
+						<SplashPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/600/?random" :handlePhotoClick="handlePhotoClick"/>
+						<SplashPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/500/?random"  :handlePhotoClick="handlePhotoClick"/>
+						<SplashPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/200/?random" :handlePhotoClick="handlePhotoClick"/>
+						<SplashPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/100/?random" :handlePhotoClick="handlePhotoClick"/>
+						<SplashPhoto classes="full-border-radius" name="Jordan Okeke" location="Pretoria, South Africa" imgURL="https://picsum.photos/300/600/?random" :handlePhotoClick="handlePhotoClick" />
 				</div>
-				<div class="landing-screen__africa-photos" v-if="searchStore.searchState === 'searching'">
-						<AfricaPhotoLoading height="250px"/>
-						<AfricaPhotoLoading height="350px" />
-						<AfricaPhotoLoading height="300px" />
-						<AfricaPhotoLoading height="250px"/>
-						<AfricaPhotoLoading height="350px" />
-						<AfricaPhotoLoading height="300px" />
+				<div class="landing-screen__splash-photos" v-if="searchStore.searchState === 'searching'">
+						<SplashPhotoLoading height="250px"/>
+						<SplashPhotoLoading height="350px" />
+						<SplashPhotoLoading height="300px" />
+						<SplashPhotoLoading height="250px"/>
+						<SplashPhotoLoading height="350px" />
+						<SplashPhotoLoading height="300px" />
 				</div>
 				</div>
 				<Modal :showModal="modal.showModal" :handleCloseModal="handleCloseModal">
@@ -29,8 +29,8 @@
 import { computed } from 'vue';
 import { useStore } from 'vuex'
 import Search from '@/components/searchinput.vue'
-import AfricaPhoto from '@/components/africaphoto.vue'
-import AfricaPhotoLoading from '@/components/africaphotoloading.vue'
+import SplashPhoto from '@/components/splashphoto.vue'
+import SplashPhotoLoading from '@/components/splashphotoloading.vue'
 import Modal from '@/components/modal.vue'
 import ModalContentCard from '@/components/modalcontentcard.vue'
 
@@ -38,8 +38,8 @@ export default {
     name: 'LandingScreen',
     components: {
 			Search,
-			AfricaPhoto,
-			AfricaPhotoLoading,
+			SplashPhoto,
+			SplashPhotoLoading,
 			Modal,
 			ModalContentCard
 		},
@@ -86,20 +86,33 @@ export default {
 
 	.modal {
 		&__content {
-		width: 60%;
-    max-height: 500px;
-	}
+			// width: 60%;
+			// max-height: 500px;
+		}
 	}
 
-	&__africa-photos {
+	&__splash-photos {
     column-count: 3;
+		column-gap: 20px;
     display: inline-block;
-		max-width: 1000px;
+		max-width: 900px;
 		margin-top: -40px;
 
 		.margin {
 			margin: 0 25px 25px;
 		}
 	}
+
+	@media only screen and (max-width: 950px) {
+    &__splash-photos {
+			column-count: 2;
+		}
+  }
+
+	@media only screen and (max-width: 580px) {
+    &__splash-photos {
+			column-count: 1;
+		}
+  }
 }
 </style>

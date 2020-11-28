@@ -1,5 +1,5 @@
 <template>
- <div class="search">
+ <div class="search" :class="searchState === '' && 'centered'">
     <div class="search__input" v-if="searchState === ''">
       <span class="search__input__search-icon" @click="startSearching">
         <img src="../assets/search-interface-symbol.svg" alt="search" />
@@ -30,7 +30,11 @@ export default {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding: 12%;
+
+  span {
+    color: #6D7B91;
+  }
   
   &__input {
     width: 60%;
@@ -41,14 +45,16 @@ export default {
     align-items: center;
 
     &__search-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
       flex: 0.1;
     }
 
     img {
-      width: 20px;
-      height: 20px;
-      flex: 0.1;
+      width: 15px;
+      height: 15px;
     }
 
     input {
@@ -59,5 +65,19 @@ export default {
       border-radius: 6px;
     }
   }
+
+ @media only screen and (max-width: 480px) {
+     &__input {
+       width: 80%;
+
+        &__search-icon {
+          flex: 0.2;
+        }
+     }
+  }
 } 
+
+.centered {
+  justify-content: center;
+}
 </style>

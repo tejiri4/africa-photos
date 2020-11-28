@@ -1,26 +1,42 @@
 <template>
-   <div class="africa-photo" :class="classes" @click="() => handlePhotoClick({ imgURL, name, location })">
-       <img :src="imgURL" />
-			<div class="africa-photo__description">
+   <div class="splash-photo" :class="`${classes} ${!state.isLoaded && 'img-loading'}`" @click="() => handlePhotoClick({ imgURL, name, location })">
+      <img :src="imgURL" @load="onImgLoad"  :class="state.isLoaded ? '' : 'loading'" alt="splash-image" />
+			<div class="splash-photo__description">
 				<h3>{{ name }}</h3>
 				<p>{{ location }}</p>
 			</div>
     </div> 
 </template>
 <script>
+import { reactive } from 'vue';
+
 export default {
-		name: 'AfricaPhoto',
+		name: 'SplashPhoto',
 		props: {
 			classes: String,
 			name: String,
 			location: String,
 			imgURL: String,
 			handlePhotoClick: Function
+		},
+		setup() {
+      const state = reactive({
+				isLoaded: false
+			})
+
+			const onImgLoad = () => {
+				state.isLoaded = true;
+			}
+
+			return {
+				state,
+				onImgLoad
+			}
 		}
 }
 </script>
 <style lang="scss" scoped>
-.africa-photo {
+.splash-photo {
 	width: 250px;
   height: auto;
 	position: relative;
@@ -61,6 +77,10 @@ export default {
 	img {
 		border-radius: 5px;
 	}
+}
+
+.img-loading {
+  opacity: 0;
 }
 
 .half-border-radius {
