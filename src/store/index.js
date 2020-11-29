@@ -45,6 +45,7 @@ const store = createStore({
 		actions: {
 			async startSearching ({ commit, state }) {
 				commit('setSearchStore', { ...state.searchStore, searchState: 'searching' })
+				commit('setPhotos', [])
 
 				const res = await axios.get(`${process.env.VUE_APP_SPLASH_API}search/photos?page=1&query=${state.searchStore.keyword}&per_page=7`);
 

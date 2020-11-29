@@ -7,7 +7,7 @@
 				<div class="landing-screen__splash-photos" v-if="searchStore.searchState === '' || searchStore.searchState === 'ended'">
 						<SplashPhoto v-for="photo in photos" :key="photo.id" :id="photo.id" classes="full-border-radius" :name="photo.name" :location="photo.location" :imgURL="photo.imgURL" :handlePhotoClick="handlePhotoClick"/>
 				</div>
-				<div class="landing-screen__splash-photos" v-if="searchStore.searchState === 'searching'">
+				<div class="landing-screen__splash-photos" v-if="!photos.length">
 						<SplashPhotoLoading height="250px"/>
 						<SplashPhotoLoading height="350px" />
 						<SplashPhotoLoading height="300px" />
@@ -106,6 +106,7 @@ export default {
 	@media only screen and (max-width: 950px) {
     &__splash-photos {
 			column-count: 2;
+			max-width: 600px;
 		}
   }
 

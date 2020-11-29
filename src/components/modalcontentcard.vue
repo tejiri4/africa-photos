@@ -27,6 +27,8 @@ export default {
 		max-height: 450px;
 		max-width: 100%;
 		object-fit: contain;
+		min-width: 100px;
+        min-height: 100px;
 	}
 
 	img, > div:first-child {
@@ -52,11 +54,13 @@ export default {
 		h3 {
 			margin-top: 20px;
 			margin-bottom: 0;
+			font-size: 16px;
 		}
 
 		p {
 			margin-bottom: 25px;
 			margin-top: 10px;
+			font-size: 15px;
 		}
 	}
 }
